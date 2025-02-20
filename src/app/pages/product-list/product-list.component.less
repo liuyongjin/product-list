@@ -1,0 +1,46 @@
+:host {
+  .product-card {
+    margin: 32px 16px;
+    cursor: pointer;
+    transition: transform 0.2s;
+
+    .product-img {
+      width: 100px;
+      height: 100px;
+    }
+
+    .product-desc {
+      display: flex;
+      align-items: center;
+    }
+
+    .product-title {
+      margin-right: 16px;
+    }
+
+    .product-category {
+      margin-right: 16px;
+    }
+
+    &:hover {
+      transform: translateY(-5px);
+    }
+  }
+
+  mat-sidenav-container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    box-shadow: -2px 0 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .detail-card {
+    padding: 16px;
+
+    img {
+      max-height: 300px;
+      object-fit: contain;
+    }
+  }
+}

@@ -1,0 +1,30 @@
+<mat-grid-list cols="2" rowHeight="2:1" gutterSize="16px">
+    @for (product of products$ | async; track product.id) {
+    <mat-card (click)="selectProduct(product.id)" class="product-card">
+        <mat-card-content>
+            <img class="product-img" mat-card-image [src]="product.image" alt="{{ product.title }}">
+            <div class="product-desc">
+                <h5 class="product-title">{{ product.title }}</h5>
+                <p class="product-category">{{ product.category | titlecase }}</p>
+                <p>{{ product.price | currency }}</p>
+            </div>
+        </mat-card-content>
+    </mat-card>
+    }
+</mat-grid-list>
+
+<mat-sidenav-container>
+    <mat-sidenav #sidenav mode="side" position="end" [opened]="!!(selectedProduct$ | async)">
+        @if (selectedProduct$ | async; as product) {
+        <mat-card class="detail-card">
+            <img mat-card-image [src]="product.image" alt="{{ product.title }}">
+            <mat-card-content>
+                <h5>{{ product.title }}</h5>
+                <p>{{ product.category | titlecase }}</p>
+                <p>{{ product.price | currency }}</p>
+                <p>{{ product.description }}</p>
+            </mat-card-content>
+        </mat-card>
+        }
+    </mat-sidenav>
+</mat-sidenav-container>
