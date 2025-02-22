@@ -6,6 +6,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatTableModule } from '@angular/material/table';
 import {
   provideHttpClient,
   withInterceptorsFromDi,
@@ -14,6 +15,7 @@ import {
 @NgModule({
   declarations: [],
   imports: [
+    MatTableModule,
     RouterModule,
     CommonModule,
     MatListModule,
@@ -23,6 +25,7 @@ import {
     MatSidenavModule,
   ],
   exports: [
+    MatTableModule,
     RouterModule,
     CommonModule,
     MatListModule,

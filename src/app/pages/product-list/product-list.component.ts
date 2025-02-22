@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductService } from '../../core/services/product.service';
-import { map } from 'rxjs/operators';
+import { Product, ProductService } from '../../core/services/product.service';
+import { map, startWith } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-product-list',
@@ -8,19 +9,28 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./product-list.component.less'],
 })
 export class ProductListComponent implements OnInit {
-  products$;
+  products$!: Observable<Product[]>;
   selectedProduct$;
+  displayedColumns: string[] = [
+    'select',
+    'image',
+    'title',
+    'category',
+    'price',
+  ];
 
   constructor(private productService: ProductService) {
-    this.products$ = this.productService.state$.pipe(
-      map((state) => state.products)
-    );
     this.selectedProduct$ = this.productService.selectedProduct$;
   }
 
   ngOnInit(): void {
+    this.products$ = this.productService.state$.pipe(
+      map((state) => state.products),
+      startWith([]) // Add a default value to ensure products$ is never null
+    );
     this.productService.loadProducts().subscribe();
   }
+
   selectProduct(id: number): void {
     this.productService.selectProduct(id);
   }

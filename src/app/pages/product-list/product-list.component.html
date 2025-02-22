@@ -1,30 +1,57 @@
-<mat-grid-list cols="2" rowHeight="2:1" gutterSize="16px">
-    @for (product of products$ | async; track product.id) {
-    <mat-card (click)="selectProduct(product.id)" class="product-card">
-        <mat-card-content>
-            <img class="product-img" mat-card-image [src]="product.image" alt="{{ product.title }}">
-            <div class="product-desc">
-                <h5 class="product-title">{{ product.title }}</h5>
-                <p class="product-category">{{ product.category | titlecase }}</p>
-                <p>{{ product.price | currency }}</p>
-            </div>
-        </mat-card-content>
-    </mat-card>
-    }
-</mat-grid-list>
+<ng-container *ngIf="products$ | async as products">
+    <table mat-table [dataSource]="products" class="mat-elevation-z8">
+        <!-- Select Column -->
+        <ng-container matColumnDef="select">
+            <th mat-header-cell *matHeaderCellDef> Select </th>
+            <td mat-cell *matCellDef="let product">
+                <button mat-button (click)="selectProduct(product.id)">Select</button>
+            </td>
+        </ng-container>
+
+        <!-- Image Column -->
+        <ng-container matColumnDef="image">
+            <th mat-header-cell *matHeaderCellDef> Image </th>
+            <td mat-cell *matCellDef="let product">
+                <img class="product-img" [src]="product.image" alt="{{ product.title }}">
+            </td>
+        </ng-container>
+
+        <!-- Title Column -->
+        <ng-container matColumnDef="title">
+            <th mat-header-cell *matHeaderCellDef> Title </th>
+            <td mat-cell *matCellDef="let product"> {{ product.title }} </td>
+        </ng-container>
+
+        <!-- Category Column -->
+        <ng-container matColumnDef="category">
+            <th mat-header-cell *matHeaderCellDef> Category </th>
+            <td mat-cell *matCellDef="let product"> {{ product.category | titlecase }} </td>
+        </ng-container>
+
+        <!-- Price Column -->
+        <ng-container matColumnDef="price">
+            <th mat-header-cell *matHeaderCellDef> Price </th>
+            <td mat-cell *matCellDef="let product"> {{ product.price | currency }} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+            [class.selected]="(selectedProduct$ | async)?.id === row.id"></tr>
+    </table>
+</ng-container>
 
 <mat-sidenav-container>
     <mat-sidenav #sidenav mode="side" position="end" [opened]="!!(selectedProduct$ | async)">
-        @if (selectedProduct$ | async; as product) {
-        <mat-card class="detail-card">
-            <img mat-card-image [src]="product.image" alt="{{ product.title }}">
-            <mat-card-content>
-                <h5>{{ product.title }}</h5>
-                <p>{{ product.category | titlecase }}</p>
-                <p>{{ product.price | currency }}</p>
-                <p>{{ product.description }}</p>
-            </mat-card-content>
-        </mat-card>
-        }
+        <ng-container *ngIf="selectedProduct$ | async as product">
+            <mat-card class="detail-card">
+                <img mat-card-image [src]="product.image" alt="{{ product.title }}">
+                <mat-card-content>
+                    <h5>{{ product.title }}</h5>
+                    <p>{{ product.category | titlecase }}</p>
+                    <p>{{ product.price | currency }}</p>
+                    <p>{{ product.description }}</p>
+                </mat-card-content>
+            </mat-card>
+        </ng-container>
     </mat-sidenav>
 </mat-sidenav-container>

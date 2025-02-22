@@ -1,46 +1,46 @@
+/* filepath: /c:/Users/57255/Desktop/product-list/src/app/pages/product-list/product-list.component.less */
 :host {
-  .product-card {
-    margin: 32px 16px;
-    cursor: pointer;
-    transition: transform 0.2s;
+  display: block;
+  padding: 16px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
 
-    .product-img {
-      width: 100px;
-      height: 100px;
-    }
+.product-img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 4px;
+}
 
-    .product-desc {
-      display: flex;
-      align-items: center;
-    }
+.selected {
+  background-color: #e0f7fa;
+}
 
-    .product-title {
-      margin-right: 16px;
-    }
+mat-sidenav-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.1);
+}
 
-    .product-category {
-      margin-right: 16px;
-    }
+.detail-card {
+  padding: 16px;
 
-    &:hover {
-      transform: translateY(-5px);
-    }
+  img {
+    max-height: 300px;
+    object-fit: contain;
+    border-radius: 8px;
   }
 
-  mat-sidenav-container {
-    position: fixed;
-    top: 0;
-    right: 0;
-    height: 100vh;
-    box-shadow: -2px 0 8px rgba(0, 0, 0, 0.1);
+  h5 {
+    margin-top: 0;
+    font-size: 1.25rem;
   }
 
-  .detail-card {
-    padding: 16px;
-
-    img {
-      max-height: 300px;
-      object-fit: contain;
-    }
+  p {
+    margin: 8px 0;
   }
 }
